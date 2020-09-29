@@ -3,7 +3,7 @@ const d3 = require('d3')
 module.exports = renderLines
 
 function renderLines(config = {}) {
-  const {
+  let {
     svg,
     links,
     margin,
@@ -15,6 +15,9 @@ function renderLines(config = {}) {
     lineType,
     animationDuration,
   } = config
+
+  // change for contact info
+  nodeHeight += 48
 
   const parentNode = sourceNode || treeData
 

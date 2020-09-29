@@ -8,6 +8,11 @@ export const tree = {
     department: '',
     name: 'Henry monger',
     title: 'Manager',
+    contact: {
+      workPhone: '123-456-7890',
+      cellPhone: '012-345-6789',
+      address: '123 W. 3rd St, Mililani'
+    },
     totalReports: 3,
   },
   hasChild: true,
@@ -24,6 +29,11 @@ export const tree1 = [
       department: '',
       name: 'Tomasz polaski',
       title: 'IT Specialist',
+      contact: {
+        workPhone: '123-456-7890',
+        cellPhone: '012-345-6789',
+        address: '124 W. 3rd St, Mililani'
+      },
       totalReports: 4,
     },
     hasChild: true,

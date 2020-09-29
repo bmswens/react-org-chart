@@ -14,7 +14,7 @@ const PERSON_HIGHLIGHT = 'org-chart-person-highlight'
 const PERSON_REPORTS_CLASS = 'org-chart-person-reports'
 
 function render(config) {
-  const {
+  let {
     svgroot,
     svg,
     tree,
@@ -42,6 +42,9 @@ function render(config) {
     onConfigChange,
   } = config
 
+  // change for contact info
+  nodeHeight += 48
+
   // Compute the new tree layout.
   const nodes = tree.nodes(treeData).reverse()
   const links = tree.links(nodes)
@@ -51,7 +54,7 @@ function render(config) {
 
   // Normalize for fixed-depth.
   nodes.forEach(function(d) {
-    d.y = d.depth * lineDepthY
+    d.y = d.depth * (lineDepthY + 48)
   })
 
   // Update the nodes
@@ -141,7 +144,62 @@ function render(config) {
     .style('fill', titleColor)
     .text(d => d.person.title)
 
-  const heightForTitle = 60 // getHeightForText(d.person.title)
+  // Person's contact info
+  // Work Phone
+  nodeEnter
+    .append('text')
+    .attr('class', PERSON_TITLE_CLASS + ' unedited')
+    .attr('x', nodeWidth / 2)
+    .attr('y', namePos.y + nodePaddingY * 2.4 + 14)
+    .attr('dy', '0.1em')
+    .style('font-size', 10)
+    .style('cursor', 'pointer')
+    .style('fill', titleColor)
+    .text(d => {
+      let number = ''
+      if (d.person.contact && d.person.contact.workPhone) {
+        number = d.person.contact.workPhone
+      }
+      return 'Work Phone: ' + number
+    })
+
+  // Cell Phone
+  nodeEnter
+    .append('text')
+    .attr('class', PERSON_TITLE_CLASS + ' unedited')
+    .attr('x', nodeWidth / 2)
+    .attr('y', namePos.y + nodePaddingY * 2.4 + 28)
+    .attr('dy', '0.1em')
+    .style('font-size', 10)
+    .style('cursor', 'pointer')
+    .style('fill', titleColor)
+    .text(d => {
+      let number = ''
+      if (d.person.contact && d.person.contact.cellPhone) {
+        number = d.person.contact.cellPhone
+      }
+      return 'Cell Phone: ' + number
+    })
+
+  // Address
+  nodeEnter
+    .append('text')
+    .attr('class', PERSON_TITLE_CLASS + ' unedited')
+    .attr('x', nodeWidth / 2)
+    .attr('y', namePos.y + nodePaddingY * 2.4 + 42)
+    .attr('dy', '0.1em')
+    .style('font-size', 10)
+    .style('cursor', 'pointer')
+    .style('fill', titleColor)
+    .text(d => {
+      let address = ''
+      if (d.person.contact && d.person.contact.address) {
+        address = d.person.contact.address
+      }
+      return 'Address: ' + address
+    })
+
+  const heightForTitle = 60 + 48 // getHeightForText(d.person.title)
 
   // Person's Reports
   nodeEnter

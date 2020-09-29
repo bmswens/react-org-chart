@@ -84,7 +84,7 @@ function handleChildrenResult(config, datum) {
       }
 
       child.x = datum.x
-      child.y = datum.y
+      child.y = datum.y 
       child.x0 = datum.x0
       child.y0 = datum.y0
 
